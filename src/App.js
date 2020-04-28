@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
-import TodoItem from './todo';
+import TodoItem from './todo/todo';
+import Clock from './clock/clock'
+import CommentBox from './comment-box/comment-box'
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -36,12 +38,15 @@ class App extends React.Component {
    return (
       <div className="App">
         <input onChange={this.newTodoChange.bind(this)} value={this.state.inputValue}></input> <button onClick={this.addTodo.bind(this)}>add</button>
-      { this.state.todos.map((item,index)=>{
-         return  (
-         <TodoItem text={item} key={index} index={index} deleteTodo={this.deleteTodo.bind(this,index)}></TodoItem>
-         )
-       })
-      }
+          { 
+            this.state.todos.map((item,index)=>{
+            return  (
+                <TodoItem  key={index}  text={item} index={index} deleteTodo={this.deleteTodo.bind(this,index)}></TodoItem>
+              )
+            })
+          }
+        {/* <Clock key="clock"></Clock> */}
+        <CommentBox></CommentBox>
       </div>
     );
   }
