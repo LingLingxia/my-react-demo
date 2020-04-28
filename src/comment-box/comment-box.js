@@ -6,16 +6,9 @@ class CommentBox extends React.Component{
        value:''
      }
      this.handleSubmit = this.handleSubmit.bind(this);
-     this.inputChange = this.inputChange.bind(this);
-  }
-  inputChange(e){
-      this.setState({
-        value:e.target.value
-      })
-      console.log(e.target.value);
   }
   handleSubmit(e){
-    alert(this.state.value);
+    alert(this.inputElement.value);
     e.preventDefault();
 
   }
@@ -26,8 +19,7 @@ class CommentBox extends React.Component{
          <input type="text"
           className="form-control"
           placeholder="请输入内容"
-          onChange={this.inputChange.bind(this)}
-          value={this.state.value}
+          ref={(inputElement)=>{this.inputElement = inputElement}}
          />
          <button type="submit" className="btn btn-primary" >留言</button>
       </form>
