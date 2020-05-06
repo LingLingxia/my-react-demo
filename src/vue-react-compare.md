@@ -12,3 +12,7 @@ ref属性还待了解
 |实例挂载前|created|componentDidMount|
 |实例挂载后|mounted|componentWillUnmount|
 |||
+
+### 全局数据传递
+- vue vuex
+- react context  往下传递很多层是可以的，但是事件往上冒泡改函数的时候的时候不好改，不好改。
