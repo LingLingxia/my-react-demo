@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import TodoItem from './todo';
+import TextArea from './textarea'
+import StatusPromotion from './status-promotion'
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -42,6 +44,8 @@ class App extends React.Component {
          )
        })
       }
+      <TextArea></TextArea>
+      <StatusPromotion></StatusPromotion>
       </div>
     );
   }
