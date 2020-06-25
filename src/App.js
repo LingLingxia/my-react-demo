@@ -8,7 +8,7 @@ import CommentBox from './comment-box/comment-box'
 import ThemeButton from './theme-context/theme-button'
 import ThemeButtonConsumer from './theme-context/theme-button-consumer'
 import { ThemeContext,themes } from './theme-context/theme-context'
-
+import { Link, Route } from 'react-router-dom'
 function Toolbar(props){
    return (
      <ThemeButton onClick={props.changeTheme}>
@@ -16,6 +16,11 @@ function Toolbar(props){
      </ThemeButton>
    )
 }
+
+function TextComponent(){
+    return <div> test test </div>
+}
+
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -59,30 +64,54 @@ class App extends React.Component {
   render(){
    return (
       <div className="App">
-        <input onChange={this.newTodoChange.bind(this)} value={this.state.inputValue}></input> <button onClick={this.addTodo.bind(this)}>add</button>
-      { this.state.todos.map((item,index)=>{
-         return  (
-         <TodoItem text={item} key={index} index={index} deleteTodo={this.deleteTodo.bind(this,index)}></TodoItem>
-         )
-       })
-      }
-      <TextArea></TextArea>
-      <StatusPromotion></StatusPromotion>
-          { 
-            this.state.todos.map((item,index)=>{
+        <ul>
+          <li>
+            <Link to="/todo-item">todo item</Link>
+          </li>
+          <li>
+             <Link to="/text-area">controled-component</Link>
+          </li>
+          <li>
+            <Link to="/status-promotion"> status-promotion </Link>
+          </li>
+          <li>
+            <Link to="/strange-clock"> strange-clock </Link>
+          </li>
+          <li>
+            <Link to="/comment-box"> comment-box </Link>
+          </li>
+          <li>
+             <Link to="/strange-button"> strange-button </Link>
+          </li>
+        </ul>
+        <Route path="/todo-item">
+            <input onChange={this.newTodoChange.bind(this)} value={this.state.inputValue}></input> <button onClick={this.addTodo.bind(this)}>add</button>
+          { this.state.todos.map((item,index)=>{
             return  (
-                <TodoItem  key={index}  text={item} index={index} deleteTodo={this.deleteTodo.bind(this,index)}></TodoItem>
-              )
-            })
+            <TodoItem text={item} key={index} index={index} deleteTodo={this.deleteTodo.bind(this,index)}></TodoItem>
+            )
+          })
           }
-        {/* <Clock key="clock"></Clock> */}
-        <CommentBox></CommentBox>
-        <ThemeContext.Provider value={this.state.theme}>
-            <Toolbar changeTheme={this.toggleTheme}></Toolbar>
-            <ThemeButtonConsumer></ThemeButtonConsumer>
-        </ThemeContext.Provider>
-        <ThemeButton />
-       
+        </Route>
+        <Route path="/text-area" component={TextArea}>
+
+        </Route>
+        <Route path="/status-promotion" component={StatusPromotion}>
+
+        </Route>
+        <Route path="/strange-clock">
+            <Clock key="clock"></Clock>
+        </Route>
+        <Route path="/comment-box" component={CommentBox}>
+
+        </Route>
+        <Route path="/strange-button">
+            <ThemeContext.Provider value={this.state.theme}>
+                <Toolbar changeTheme={this.toggleTheme}></Toolbar>
+                <ThemeButtonConsumer></ThemeButtonConsumer>
+            </ThemeContext.Provider>
+            <ThemeButton />
+        </Route>       
       </div>
     );
   }

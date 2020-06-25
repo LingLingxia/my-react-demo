@@ -16,3 +16,19 @@ ref属性还待了解
 ### 全局数据传递
 - vue vuex
 - react context  往下传递很多层是可以的，但是事件往上冒泡改函数的时候的时候不好改，不好改。
+
+### 路由
+- vue router
+- react router(react-router-dom)
+### ref
+vue 直接指定ref=name 用this.$ref[name]去访问
+react 没看懂
+
+
+### 调试工具
+vue
+react
+
+### 插件
+vue vue.use()
+react 
