@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import TextArea from './textarea'
+import ReduxTest from './redux'
 import StatusPromotion from './status-promotion'
 import TodoItem from './todo/todo';
 import Clock from './clock/clock'
@@ -8,7 +9,7 @@ import CommentBox from './comment-box/comment-box'
 import ThemeButton from './theme-context/theme-button'
 import ThemeButtonConsumer from './theme-context/theme-button-consumer'
 import { ThemeContext,themes } from './theme-context/theme-context'
-import { Link, Route } from 'react-router-dom'
+import { Link, Route, Switch ,Redirect } from 'react-router-dom'
 function Toolbar(props){
    return (
      <ThemeButton onClick={props.changeTheme}>
@@ -66,6 +67,9 @@ class App extends React.Component {
       <div className="App">
         <ul>
           <li>
+            <Link to="/redux-test">redux-test</Link>
+          </li>
+          <li>
             <Link to="/todo-item">todo item</Link>
           </li>
           <li>
@@ -84,34 +88,43 @@ class App extends React.Component {
              <Link to="/strange-button"> strange-button </Link>
           </li>
         </ul>
-        <Route path="/todo-item">
-            <input onChange={this.newTodoChange.bind(this)} value={this.state.inputValue}></input> <button onClick={this.addTodo.bind(this)}>add</button>
-          { this.state.todos.map((item,index)=>{
-            return  (
-            <TodoItem text={item} key={index} index={index} deleteTodo={this.deleteTodo.bind(this,index)}></TodoItem>
-            )
-          })
-          }
-        </Route>
-        <Route path="/text-area" component={TextArea}>
+        <Switch>
+            <Route path="/redux-test">
+              <ReduxTest></ReduxTest>
+            </Route>
+            <Route path="/todo-item">
+                <input onChange={this.newTodoChange.bind(this)} value={this.state.inputValue}></input> <button onClick={this.addTodo.bind(this)}>add</button>
+              { this.state.todos.map((item,index)=>{
+                return  (
+                <TodoItem text={item} key={index} index={index} deleteTodo={this.deleteTodo.bind(this,index)}></TodoItem>
+                )
+              })
+              }
+            </Route>
+            <Route path="/text-area" component={TextArea}>
 
-        </Route>
-        <Route path="/status-promotion" component={StatusPromotion}>
+            </Route>
+            <Route path="/status-promotion" component={StatusPromotion}>
 
-        </Route>
-        <Route path="/strange-clock">
-            <Clock key="clock"></Clock>
-        </Route>
-        <Route path="/comment-box" component={CommentBox}>
+            </Route>
+            <Route path="/strange-clock">
+                <Clock key="clock"></Clock>
+            </Route>
+            <Route path="/comment-box" component={CommentBox}>
 
-        </Route>
-        <Route path="/strange-button">
-            <ThemeContext.Provider value={this.state.theme}>
-                <Toolbar changeTheme={this.toggleTheme}></Toolbar>
-                <ThemeButtonConsumer></ThemeButtonConsumer>
-            </ThemeContext.Provider>
-            <ThemeButton />
-        </Route>       
+            </Route>
+            <Route path="/strange-button">
+                <ThemeContext.Provider value={this.state.theme}>
+                    <Toolbar changeTheme={this.toggleTheme}></Toolbar>
+                    <ThemeButtonConsumer></ThemeButtonConsumer>
+                </ThemeContext.Provider>
+                <ThemeButton />
+            </Route>  
+           
+              {/* default to todo-item */}
+            <Redirect to="/todo-item"/>
+           
+        </Switch>     
       </div>
     );
   }

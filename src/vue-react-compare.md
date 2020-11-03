@@ -32,3 +32,7 @@ react
 ### 插件
 vue vue.use()
 react 
+
+### redux
+- createStore接受一个函数reducer作为参数，reducer接受一个state和action作为参数，返回处理过后的state
+- state就是当前的数据值，action是一个对象有两个key,type and payload，
