@@ -8,8 +8,16 @@ import Clock from './clock/clock'
 import CommentBox from './comment-box/comment-box'
 import ThemeButton from './theme-context/theme-button'
 import ThemeButtonConsumer from './theme-context/theme-button-consumer'
+import routerHtml from './router';
 import { ThemeContext,themes } from './theme-context/theme-context'
-import { Link, Route, Switch ,Redirect } from 'react-router-dom'
+import { Route, Switch ,Redirect } from 'react-router-dom'
+import ExceptionCatcher from './error-catcher';
+import reduxTest from './redux';
+
+
+const Game = React.lazy(()=> import("./game/index"));
+//when we use react.lazy,we should use Suspend too ,
+//and don't forget to add fallback function
 function Toolbar(props){
    return (
      <ThemeButton onClick={props.changeTheme}>
@@ -21,6 +29,12 @@ function Toolbar(props){
 function TextComponent(){
     return <div> test test </div>
 }
+
+import("./util").then(math=>{
+  console.log(math);
+  // math.add(99,100);
+  math.default.add(99,100);
+})
 
 class App extends React.Component {
   constructor(props){
@@ -65,29 +79,8 @@ class App extends React.Component {
   render(){
    return (
       <div className="App">
-        <ul>
-          <li>
-            <Link to="/redux-test">redux-test</Link>
-          </li>
-          <li>
-            <Link to="/todo-item">todo item</Link>
-          </li>
-          <li>
-             <Link to="/text-area">controled-component</Link>
-          </li>
-          <li>
-            <Link to="/status-promotion"> status-promotion </Link>
-          </li>
-          <li>
-            <Link to="/strange-clock"> strange-clock </Link>
-          </li>
-          <li>
-            <Link to="/comment-box"> comment-box </Link>
-          </li>
-          <li>
-             <Link to="/strange-button"> strange-button </Link>
-          </li>
-        </ul>
+       {routerHtml()}
+        <React.Suspense fallback={<div>...</div>}>
         <Switch>
             <Route path="/redux-test">
               <ReduxTest></ReduxTest>
@@ -120,11 +113,19 @@ class App extends React.Component {
                 </ThemeContext.Provider>
                 <ThemeButton />
             </Route>  
-           
+            <Route path="/game" component={Game}>
+            </Route>
+
+            <Route path="/exception">
+               <ExceptionCatcher>
+                   a useless component
+               </ExceptionCatcher>
+            </Route>
               {/* default to todo-item */}
             <Redirect to="/todo-item"/>
            
-        </Switch>     
+        </Switch>   
+        </React.Suspense>  
       </div>
     );
   }
