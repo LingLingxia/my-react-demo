@@ -12,6 +12,7 @@ import routerHtml from './router';
 import { ThemeContext,themes } from './theme-context/theme-context'
 import { Route, Switch ,Redirect } from 'react-router-dom'
 import ExceptionCatcher from './error-catcher';
+import ReactSelectDemo from './react-select-demo';
 import reduxTest from './redux';
 
 
@@ -79,7 +80,7 @@ class App extends React.Component {
   render(){
    return (
       <div className="App">
-       {routerHtml()}
+        {routerHtml()}
         <React.Suspense fallback={<div>...</div>}>
         <Switch>
             <Route path="/redux-test">
@@ -120,6 +121,10 @@ class App extends React.Component {
                <ExceptionCatcher>
                    a useless component
                </ExceptionCatcher>
+            </Route>
+
+            <Route path="/react-delect-demo" component={ReactSelectDemo}>
+                 
             </Route>
               {/* default to todo-item */}
             <Redirect to="/todo-item"/>

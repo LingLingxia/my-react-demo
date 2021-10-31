@@ -31,6 +31,10 @@ const getRouterList = ()=>{
              <Link to="/exception"> exception catcher</Link>
         </li>
 
+        <li>
+             <Link to="/react-delect-demo">  react-delect-demo</Link>
+        </li>
+
       </ul>
     )
 }
