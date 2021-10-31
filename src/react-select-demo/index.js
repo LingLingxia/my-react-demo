@@ -4,7 +4,7 @@ import Select from 'react-dropdown-select';
 
 
 const options = [
-    {type:"group",title:"SDG"},
+    {type:"group",title:"SDG",value:3,label:"label 3"},
     {value:1,label:"label 1",type:"account"},
     {value:2,label:"label 2",type:"account"}
 ]
